@@ -44,9 +44,9 @@ try:
     app.secret_key = '19B91A0526'
     logging.info("Started Application")
     error = ""
-    def authenticate_user(email, password):
+    def authenticate_user(username, password):
         # Fetch the user document from the collection
-        owner_document = owner_collection.find_one({'email': email})
+        owner_document = owner_collection.find_one({'username': username})
         if owner_document:
             # Get the stored hashed password
             stored_hashed_password = owner_document['password']
@@ -77,10 +77,10 @@ try:
     @app.route('/login', methods=['GET', 'POST'])
     def login():
         if request.method == 'POST':
-            email = request.form['email']
+            username = request.form['username']
             password = request.form['password']
-            if authenticate_user(email, password):
-                session["email"] = email
+            if authenticate_user(username, password):
+                session["email"] = username
                 return redirect(url_for("home"))
             error = "Invalid Credentials"
         else:
