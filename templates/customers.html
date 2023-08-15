@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customers</title>
+    <link rel="stylesheet" href="/static/styles/customers.css">
+    <script src="/static/scripts/customers.js" defer></script>
+</head>
+<body>
+    <div class="search-bar">
+        <a href="/customerspage/back" class = back-button id="back-button">Back</a>
+        <input type="text" id="search-input" placeholder="Search by Name or Phone">
+    </div>
+    <div class="customer-cards">
+        {% for customer in customers %}
+        <div class="customer-card">
+            <img src="{{ customer.customer_pic }}" alt="{{ customer.customer_name }} Image">
+            <h2 class="name">Name: {{ customer.customer_name }}</h2>
+            <p class ="phone">Phone: {{ customer.customer_phone }}</p>
+            <p class ="village">Village: {{ customer.customer_village }}</p>
+            <p class ="total">Total Business: ₹3000</p>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

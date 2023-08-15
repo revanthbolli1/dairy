@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="/static/styles/dailyentry.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/customers.css">
+    <script src="/static/scripts/customers.js"></script>
+    <script src="/static/scripts/dailyentry.js"></script>
+</head>
+<body>
+    <div class="search-bar">
+        <a href="/dailyentrypage/back" class = back-button id="back-button">Back</a>
+        <input type="text" id="search-input" placeholder="Search by Name or Phone">
+    </div>
+    <div class="customer-cards">
+    {% for customer in customers %}
+        <div class="customer-card"  card_name ='{{customer.customer_name}}' card_phone ='{{customer.customer_phone}}' card_village='{{customer.customer_village}}'>
+            <img src="{{ customer.customer_pic }}" alt="{{ customer.customer_name }} Image">
+            <h2 class="name" id ="card_name">Name: {{ customer.customer_name }} </h2>
+            <p class ="phone" id="card_phone" >Phone: {{ customer.customer_phone}} </p>
+            <p class ="village" id="card_village" >Village: {{ customer.customer_village}} </p>
+        </div>
+    {% endfor %}
+    </div>
+    
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            
+            <form id="form" action="/addentry" method="post">
+                <label for="entry_name">Name:</label>
+                <input type="text" id="entry_name" name="entry_name" disabled>
+                
+                <label for="entry_phone">Phone Number:</label>
+                <input type="text" id="entry_phone" name="entry_phone" disabled>
+                
+                <label for="entry_village">Village:</label>
+                <input type="text" id="entry_village" name="entry_village" disabled>
+
+                <label for="milkDate">Milk Date:</label>
+                <input type="date" id="milkDate" name="milkDate">
+                
+                <label for="fat">Fat of Milk:</label>
+                <input type="text" id="fat" name="fat">
+                
+                <label for="quantity">Quantity of Milk:</label>
+                <input type="text" id="quantity" name="quantity">
+                
+                <label for="total">Total Price:</label>
+                <input type="text" id="total" name="total" disabled>
+                
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

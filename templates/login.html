@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/login.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/nav.css') }}">
+    <script src="{{ url_for('static', filename='scripts/login.js') }}"></script> -->
+    <link rel="stylesheet" href="/static/styles/nav.css">
+    <link rel="stylesheet" href="/static/styles/login.css">
+    <script src="/static/scripts/login.js" defer></script>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-CJ8DjKX9vijLLt3eBt2Gd+EgOdTtCvz0ZsRgiZPb8+vx9XZvAaOJ7x+c0TR8Ww7LOjvJr/aEL7CC91+nwn/VA==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+    <script src="https://kit.fontawesome.com/e2e46cdcd4.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="navbar">
+        <nav>
+            <i class="fa-solid fa-cow fa-bounce"></i>
+            <h2>MILKZONE</h2>
+        </nav>
+    </div>
+
+    <section>
+        <div class="login">
+            <h2>LOGIN</h2>
+            <form action="/login" method="post">
+                <div class="control">
+                    <input class="input" type="text" placeholder="Email*" name="email">
+                    <span class="error"></span>
+                </div>
+                <div class="control">
+                    <input class="input" type="password" placeholder="Password*" name="password">
+                    <span class="error"></span>
+                </div>
+                <span>""</span>
+                <button type="submit">Login</button>
+                <span class="message">{{error}}</span>
+            </form>
+        </div>
+    </section>
+</body>
+</html>

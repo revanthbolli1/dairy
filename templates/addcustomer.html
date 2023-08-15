@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Profile</title>
+<link rel="stylesheet" href="/static/styles/addcustomer.css">
+<script src="/static/scripts/addcustomer.js" defer></script>
+</head>
+<body>
+    <div class="fullscreen-form">
+        <form id="profile-form" action="/addcustomer" method="post" enctype="multipart/form-data">
+            <div class="profile-pic-container">
+                <img src="/static/images/default-profile.png" alt="Profile Picture" class="profile-pic" id="profile-pic">
+                <label for="profile-pic-input" class="edit-button">ADD</label>
+                <input type="file" id="profile-pic-input" accept="image/*" name="customerprofilepic">
+            </div>
+            <h2>ADD CUSTOMER</h2>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="customername" class="form-input" placeholder="Enter customer name">
+            <div class="error-message" id="name-error"></div>
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="customerphone" class="form-input" placeholder="Enter customer phone number">
+            <div class="error-message" id="phone-error"></div>
+            <label for="village">Village:</label>
+            <input type="text" id="village" name="customervillage" class="form-input" placeholder="Enter customer village name">
+            <div class="error-message" id="village-error"></div>
+            <a href="/addcustomerpage/back" class = submit-button id="back-button">Back</a>
+            <button type="submit" class="submit-button" id="submit-button">Submit</button>
+            <div class = "success-message" id ="success">{{success}}</div>
+            <div class="error-message" id="message">{{message}}</div>
+        </form>
+    </div>
+</body>
+</html>

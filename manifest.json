@@ -1,0 +1,24 @@
+{
+    "name": "Milkzone",
+    "short_name": "Milkzone",
+    "description": "For recording daily milk transactions.",
+    "start_url": "/templates/login.html",
+    "display": "standalone",
+    "background_color": "#fdfdfd",
+    "theme_color": "#db4938",
+    "icons": [
+      {
+          "src": "/static/images/icon.png",
+          "sizes": "70x70",
+          "type": "image/png"
+      },
+      {
+          "src": "/static/images/icon.png",
+          "sizes": "90x90",
+          "type": "image/png"
+      }
+  ]
+  }
+
+
+
