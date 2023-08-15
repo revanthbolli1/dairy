@@ -8,6 +8,7 @@ import subprocess
 import tkinter as tk
 import webview
 import os
+from datetime import datetime
 
 
 #MongoDB Connection
@@ -16,6 +17,7 @@ try:
     db = client['Dairy']
     customer_collection = db['Customers']
     owner_collection = db["owner_login"]
+    entries_collection = db['Entries']
 except Exception as e:
         logging.error("MongoDB Connection failed!")       
 
@@ -59,7 +61,7 @@ try:
         last_used = customer_collection.find_one(sort=[("customer_id", -1)])
         if last_used:
             return last_used['customer_id']
-        return 2000
+        return 1000
 
     def generate_unique_id():
         last_id = get_last_used_id()
@@ -179,6 +181,33 @@ try:
     @app.route("/dailyentrypage/back")
     def dailyentrypageback():
         return redirect(url_for("back"))
+    
+    @app.route('/addentry',  methods=['GET', 'POST'])
+    def addentry():
+        if request.method == "POST":
+            customer_id = request.form["entry_id_hidden"]
+            date = request.form["milkDate"]
+            time = request.form["am_pm"]
+            fat = request.form["fat"]
+            snf = request.form["snf"]
+            price = request.form["total"]
+            quantity = request.form["quantity"]
+            entry_document = {
+                "customer_id": int(customer_id),
+                "date":datetime.strptime(date, '%Y-%m-%d'),
+                "time":time,
+                "fat":float(fat),
+                "snf":float(snf),
+                "quantity":float(quantity),
+                "price":float(price)
+            }
+            customer_document = customer_collection.find_one({'customer_id': int(customer_id)})
+            if customer_document:
+                entries_collection.insert_one(entry_document)
+        return redirect(url_for("dailyentrypage"))
+
+
+
 
 
 
@@ -214,6 +243,7 @@ try:
     @app.route("/changepasswordpage/back")
     def changepassword_back():
         return redirect(url_for("back"))
+    
 
 
 

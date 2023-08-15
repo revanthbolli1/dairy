@@ -1,28 +1,99 @@
 document.addEventListener('DOMContentLoaded', function() {
     const modal = document.getElementById('modal');
-    const modalContent = document.querySelector('.modal-content');
-
+    const miniModal = document.getElementById('mini-modal')
+    const form = document.getElementById('form')
+    const sbtBtn =document.getElementsByClassName("submit_button")[0]
     function openModal(card) {
+        const clsBtn = document.querySelector('.close')
         const name = card.getAttribute('card_name');
         const phone = card.getAttribute('card_phone');
         const village = card.getAttribute('card_village');
+        const id = card.getAttribute('card_id');
 
         document.getElementById('entry_name').value = name;
         document.getElementById('entry_phone').value = phone;
         document.getElementById('entry_village').value = village;
-
+        document.getElementById('entry_id').value = id;
+        document.getElementById('entry_id_hidden').value = id;
         modal.style.display = 'flex';
+
+        clsBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+            clearFields();
+        });
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+                clearFields();
+            }
+        });
+
+
+
+
+        sbtBtn.addEventListener('click', function(){
+            miniModal.style.display="flex";
+            const confirmClsBtn = document.querySelector('.confirm-close')
+            const date = document.getElementById("milkDate").value;
+            const amtime = document.getElementById('amRadio');
+            const pmtime = document.getElementById('pmRadio');
+            if (amtime.checked){
+                const time = amtime.value;
+            }
+            const time = pmtime.value;
+            const fat =document.getElementById('fat').value;
+            const snf = document.getElementById('snf').value;
+            console.log(fat,snf)
+            const quantity = document.getElementById('quantity').value;
+            const total = document.getElementById('total').value;
+            
+    
+            document.getElementById('confirm_name').value = name;
+            document.getElementById('confirm_phone').value = phone;
+            document.getElementById('confirm_village').value = village;
+            document.getElementById('confirm_id').value = id;
+            document.getElementById('confirm_fat').value = fat;
+            document.getElementById('confirm_date').value = date + " "+time;
+            document.getElementById('confirm_snf').value =snf;
+            document.getElementById('confirm_quantity').value = quantity;
+            document.getElementById('confirm_total').value = total;
+            miniModal.style.zIndex="4";
+        });
+
     }
 
-    document.querySelector('.close').addEventListener('click', function() {
-        modal.style.display = 'none';
-    });
 
-    window.addEventListener('click', function(event) {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
+
+
+    
+    
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+    function clearFields() {
+        document.getElementById('milkDate').value = '';
+        document.getElementById('amRadio').checked = false;
+        document.getElementById('pmRadio').checked = false;
+        document.getElementById('fat').value = '';
+        document.getElementById('snf').value = '';
+        document.getElementById('quantity').value = '';
+        document.getElementById('total').value = '';
+    }
+
+    
+
+    
 
     // Attach openModal function to all cards
     const cards = document.querySelectorAll('.customer-card');
