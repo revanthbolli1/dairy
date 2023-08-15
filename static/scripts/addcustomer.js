@@ -19,8 +19,8 @@ form.addEventListener('submit', (event) => {
     event.preventDefault();
     count = validateNameInput(nameInput, nameError, count);
     count = validatePhoneInput(phoneInput, phoneError,count);
-    console.log(count)
-    if (count === 2){
+    count = validateVillageInput(villageInput, villageError, count)
+    if (count === 3){
         form.submit();
     }
 });
@@ -55,6 +55,24 @@ function validatePhoneInput(input, errorElement,count) {
     else{
         count ++
         errorMessage="";
+        errorElement.previousElementSibling.style.borderBottomColor= "rgb(5, 219, 16)"
+    }
+    errorElement.textContent = errorMessage
+    return count
+}
+
+
+function validateVillageInput(input, errorElement, count) {
+    if (input.value.trim() === '') {
+        errorMessage = "Village is required!";
+        errorElement.previousElementSibling.style.borderBottomColor = "red"
+    } else if(input.value.trim().length < 4){
+        errorMessage = 'Village name must have atleast 4 characters!'
+        errorElement.previousElementSibling.style.borderBottomColor = "red"
+    }
+    else{
+        count++;
+        errorMessage = '';
         errorElement.previousElementSibling.style.borderBottomColor= "rgb(5, 219, 16)"
     }
     errorElement.textContent = errorMessage

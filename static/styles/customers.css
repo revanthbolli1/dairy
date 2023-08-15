@@ -36,7 +36,7 @@ body{
     border: 1px solid #ddd;
     padding: 10px;
     width:300px;
-    height:330px;
+    height:350px;
     width: calc(20% - 20px);
     box-sizing: border-box;
     background-color: rgba(246, 242, 242, 0.859);
@@ -106,7 +106,7 @@ body{
     border:2px solid#0ada11;
     color: rgb(255, 255, 255);
 }
-.name,.phone,.village,.total{
+.name,.phone,.village,.total,.id{
     font-size: 16px;
     color:rgb(0, 16, 89);
     font-weight: bold;

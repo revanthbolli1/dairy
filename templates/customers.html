@@ -8,12 +8,13 @@
 <body>
     <div class="search-bar">
         <a href="/customerspage/back" class = back-button id="back-button">Back</a>
-        <input type="text" id="search-input" placeholder="Search by Name or Phone">
+        <input type="text" id="search-input" placeholder="Search by Name or Number">
     </div>
     <div class="customer-cards">
         {% for customer in customers %}
         <div class="customer-card">
             <img src="{{ customer.customer_pic }}" alt="{{ customer.customer_name }} Image">
+            <h2 class="id">Number: {{ customer.customer_id }}</h2>
             <h2 class="name">Name: {{ customer.customer_name }}</h2>
             <p class ="phone">Phone: {{ customer.customer_phone }}</p>
             <p class ="village">Village: {{ customer.customer_village }}</p>

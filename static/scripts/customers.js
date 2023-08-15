@@ -8,10 +8,10 @@ document.addEventListener("DOMContentLoaded", function() {
         const cards = customerCards.querySelectorAll(".customer-card");
 
         cards.forEach(card => {
-            const customerName = card.querySelector("h2").textContent.toLowerCase();
-            const customerPhone = card.querySelector(".phone").textContent.toLowerCase();
+            const customerName = card.querySelector(".name").textContent.toLowerCase();
+            const customerid = card.querySelector(".id").textContent.toLowerCase();
 
-            if (customerName.includes(searchQuery) || customerPhone.includes(searchQuery)) {
+            if (customerName.includes(searchQuery) || customerid.includes(searchQuery)) {
                 card.style.display = "block"; // Show matching cards
             } else {
                 card.style.display = "none";  // Hide non-matching cards
