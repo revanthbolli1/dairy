@@ -200,7 +200,7 @@ try:
             if request.method == 'POST':
                 old_password = request.form["oldpassword"]
                 new_password = request.form["newpassword"]
-                owner_document = owner_collection.find_one({'email': email})
+                owner_document = owner_collection.find_one({'username': email})
                 if owner_document:
                     db_password = owner_document['password']
                     if bcrypt.checkpw(old_password.encode('utf-8'), db_password):
