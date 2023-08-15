@@ -55,6 +55,16 @@ try:
                 return True
         return False
 
+    def get_last_used_id():
+        last_used = customer_collection.find_one(sort=[("customer_id", -1)])
+        if last_used:
+            return last_used['customer_id']
+        return 2000
+
+    def generate_unique_id():
+        last_id = get_last_used_id()
+        new_id = last_id + 5
+        return new_id
     
 
     #ROUTES FOR INDEX PAGE
@@ -113,19 +123,22 @@ try:
                 customer_pic ="/static/images/"+ customer_pic_file.filename
             else:
                 customer_pic = "/static/images/default-profile.png"
+            
             customer_document = customer_collection.find_one({'customer_phone': customer_phone})
             if customer_document is None:
+                customer_id = generate_unique_id()
                 customer_document = {
+                    "customer_id" : customer_id,
                     "customer_name" : customer_name,
                     "customer_phone": customer_phone,
                     "customer_village":customer_village,
-                    "customer_pic":customer_pic
+                    "customer_pic":customer_pic,
                 }
                 customer_collection.insert_one(customer_document)
-                message = "Customer Added Successfully!"
-                return redirect(url_for("addcustomerpage", success = message))
-            message = "Customer Already Registered!"
-            return redirect(url_for("addcustomerpage", message = message))
+                message = "Customer Added Successfully"
+                return redirect(url_for("addcustomerpage", success = message + " with ID : "+ str(customer_id)))
+            message = "Customer Already Registered"
+            return redirect(url_for("addcustomerpage", message = message + " with an ID : "+ str(customer_document["customer_id"])))
         
     @app.route("/addcustomerpage/back")
     def back():
