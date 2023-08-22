@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/static/styles/nav.css">
+    <link rel="stylesheet" href="/static/styles/home.css">
+    <script src="https://kit.fontawesome.com/e2e46cdcd4.js" crossorigin="anonymous"></script> 
+    <script src="/static/scripts/home.js"></script>
+</head>
+<body>
+    <div id="navbar">
+        <nav>
+            <i class="fa-solid fa-cow fa-bounce"></i>
+            <h2>MILKZONE</h2>
+        </nav>
+    </div>
+
+    <div class = "success-message" id ="success">{{changepassword_message}}</div>
+
+    <div class="item-container">
+        <div class="card">
+            <a href ="/addcustomerpage"><img src="/static/images/add.jpeg" alt="Avatar">
+            <div class="containers">
+                <h4><b>ADD CUSTOMER</b></h4> 
+            </div></a>
+        </div>
+        <div class="card">
+            <a href="/customerspage"><img src="/static/images/view.jpg" alt="Avatar" >
+            <div class="containers">
+                <h4><b>CUSTOMERS</b></h4> 
+            </div></a>
+        </div>
+        <div class="card">
+            <a href = "/dailyentrypage"><img src="/static/images/records.png" alt="Avatar" >
+            <div class="containers">
+                <h4><b>DAILY ENTRY</b></h4> 
+            </div></a>
+        </div>
+        <div class="card">
+            <a href="/changepassword"><img src="/static/images/changepassword.jpg" alt="Avatar">
+            <div class="containers">
+                <h4><b>CHANGE PASSWORD</b></h4> 
+            </div></a>
+        </div>
+        <div class="card">
+            <a href="/logout"><img src="/static/images/logout.png" alt="Avatar" >
+            <div class="containers">
+                <h4><b>LOG OUT</b></h4> 
+            </div></a>
+        </div>  
+
+    </div> 
+</body>
+</html>
