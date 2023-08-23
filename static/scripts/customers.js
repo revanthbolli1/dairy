@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     const searchInput = document.getElementById("search-input");
-    const customerCards = document.querySelector(".customer-cards");
+    const customerCards = document.querySelector(".customers-cards");
 
     // Search button click event handler
     searchInput.addEventListener("input", () => {

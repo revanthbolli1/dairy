@@ -14,6 +14,13 @@ const villageInput = document.getElementById('village');
 const nameError = document.getElementById('name-error');
 const phoneError = document.getElementById('phone-error');
 const villageError = document.getElementById('village-error');
+const sucbanner = document.getElementById("success");
+if (sucbanner.innerText===""){
+    sucbanner.style.display="none";
+}
+else{
+    sucbanner.style.display="block";
+}
 form.addEventListener('submit', (event) => {
     let count = 0;
     event.preventDefault();

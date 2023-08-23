@@ -3,8 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const miniModal = document.getElementById('mini-modal')
     const form = document.getElementById('form')
     const sbtBtn =document.getElementsByClassName("submit_button")[0]
-    function openModal(card) {
-        const clsBtn = document.querySelector('.close')
+    function shiftData(card) {
         const name = card.getAttribute('card_name');
         const phone = card.getAttribute('card_phone');
         const village = card.getAttribute('card_village');
@@ -15,21 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('entry_village').value = village;
         document.getElementById('entry_id').value = id;
         document.getElementById('entry_id_hidden').value = id;
-        modal.style.display = 'flex';
-
-        clsBtn.addEventListener('click', function() {
-            modal.style.display = 'none';
-            clearFields();
-        });
-        window.addEventListener('click', function(event) {
-            if (event.target === modal) {
-                modal.style.display = 'none';
-                clearFields();
-            }
-        });
-
-
-
 
         sbtBtn.addEventListener('click', function(){
             miniModal.style.display="flex";
@@ -43,7 +27,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const time = pmtime.value;
             const fat =document.getElementById('fat').value;
             const snf = document.getElementById('snf').value;
-            console.log(fat,snf)
             const quantity = document.getElementById('quantity').value;
             const total = document.getElementById('total').value;
             
@@ -62,25 +45,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     }
 
-
-
-
-    
-    
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
     function clearFields() {
         document.getElementById('milkDate').value = '';
         document.getElementById('amRadio').checked = false;
@@ -91,15 +55,40 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('total').value = '';
     }
 
-    
+    const searchInput = document.getElementById("search-input");
+    const customerCards = document.querySelector(".customer-cards");
 
-    
+    // Search button click event handler
+    searchInput.addEventListener("input", () => {
+        const searchQuery = searchInput.value.toLowerCase();
+        const cards = customerCards.querySelectorAll(".customer-card");
 
-    // Attach openModal function to all cards
+        cards.forEach(card => {
+            const customerName = card.querySelector(".name").textContent.toLowerCase();
+            const customerid = card.querySelector(".id").textContent.toLowerCase();
+
+            if (customerName.includes(searchQuery) || customerid.includes(searchQuery)) {
+                card.style.display = "block"; // Show matching cards
+            } else {
+                card.style.display = "none";  // Hide non-matching cards
+            }
+        });
+    });
+
     const cards = document.querySelectorAll('.customer-card');
+    function toggleCardColor(card) {
+         // Assuming you have a class 'card' for each card
+        cards.forEach(function(c) {
+            c.style.backgroundColor = 'rgb(227, 218, 218)'; // Reset background color for all cards
+        });
+        card.style.backgroundColor = 'lightgreen'; // Set background color of clicked card to green
+    }
+    
+    // Attach openModal function to all cards
     cards.forEach(function(card) {
         card.addEventListener('click', function() {
-            openModal(card);
+            toggleCardColor(card)
+            shiftData(card);
         });
     });
 });

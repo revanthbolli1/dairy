@@ -16,39 +16,58 @@ body{
 .customer-cards {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start; /* Adjust as needed */
-    row-gap:40px;
-    column-gap: 20px;
+    justify-content: center; /* Adjust as needed */
+    row-gap:20px;
+    column-gap: 10px;
     align-items: center;
     align-content: center;
-    background-color: rgba(0, 0, 0, 0.44);
     min-height: 92vh;
     height: auto;
     padding: 60px 30px;
     margin-top: 56px;
     z-index: 0;
-    border:10px solid rgb(46, 46, 167);
     border-top: none;
+    width: 45%;
+    background-color:rgb(64, 86, 150);
 }
 
 /* Style for individual customer card */
 .customer-card {
-    border: 1px solid #ddd;
+    border: 1px solid #c69797;
     padding: 10px;
     width:300px;
     height:355px;
-    width: calc(20% - 20px);
+    /* width: calc(20% - 20px); */
     box-sizing: border-box;
-    background-color: rgba(246, 242, 242, 0.859);
+    background-color: rgb(227, 218, 218);
     border-radius: 20px;
     cursor: pointer;
     z-index: 0;
-    /* transition: background-color 0.3s ease; */
+    transition: all 0.3s;
+    box-shadow: 0 8px 12px black;
 }
 .customer-card:hover{
     transform: scale(1.05);
-    background-color: #ffffff;
-    border: 4px solid rgb(241, 214, 3);
+    background-color: #f5d401;
+    border: 2px solid rgb(0, 0, 0);
+    transform: translateY(-8px);
+}
+
+.customers-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Adjust as needed */
+    row-gap:40px;
+    column-gap: 40px;
+    align-items: center;
+    align-content: center;
+    min-height: 92vh;
+    height: auto;
+    padding: 60px 30px;
+    margin-top: 56px;
+    z-index: 0;
+    border-top: none;
+    background-color: rgba(36, 144, 154, 0.5);
 }
 
 .customer-card img {
@@ -65,16 +84,17 @@ body{
     width: 100%;
     text-align: center;
     background-color: rgb(46, 46, 167);
+    border-bottom: 2px solid rgb(243, 243, 243);
     position:fixed;
     left:0%;
     top:0%;
-    height: 100px;
+    height: 80px;
     z-index: 1;
 }
 
 .search-bar input {
     padding: 8px 16px;
-    margin: 30px 10px;
+    margin: 20px 10px;
     border-radius: 10px;
     font-size: 20px;
     width:600px;
@@ -83,7 +103,7 @@ body{
     font-weight: bold;
 }
 .search-bar input::placeholder{
-    color: rgb(0, 0, 0);
+    color: rgba(97, 89, 89, 0.784);
     text-align: center;
 }
 .back-button {

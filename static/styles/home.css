@@ -11,7 +11,7 @@ body{
     display:flex;
     flex-wrap: wrap;
     width:92%;
-    margin-top: 3.5rem;
+    margin-top: 6.5rem;
     column-gap: 4rem;
     row-gap: 4rem;
     padding: 1rem 0rem ;
@@ -64,4 +64,19 @@ a{
 a:hover{
     color: rgb(255, 230, 3);
 }
+
+
+.success-message {
+    display:none;
+    position: absolute;
+    top:4%;
+    left:40%;
+    border: 2px solid rgb(13, 107, 5);
+    padding: 9px 40px;
+    color: #f0f0f0;
+    font-weight: bold;
+    background-color: rgb(16, 165, 16);
+    border-radius: 8px;
+    font-size: 16px;
+  }
 

@@ -19,7 +19,6 @@ body {
     align-items: center;
     justify-content: center;
     background-color: #94d5eb;
-    box-shadow: 0px 8px 12px rgb(95, 199, 222);
     border-radius: 10px;
     padding: 0px;
     width: 28%;
@@ -121,17 +120,26 @@ body {
   }
 
   .success-message {
+    display: none;
+    position: absolute;
+    top:2%;
+    left:36%;
+    border: 2px solid rgb(0, 0, 0);
+    padding: 16px 24px;
     color: #0e8810;
     font-weight: bold;
-    font-size: 12px;
-    margin-left: 60px;
-    margin-bottom: 7px;
+    background-color: white;
+    border-radius: 8px;
   }
-  #success , #message{
+  #success{
+    font-size: 18px;
+  }
+   #message{
     margin-top: 20px;
     margin-left: 15px;
     font-size: 16px;
   }
+  
   label {
     font-size: 15px;
     font-weight: bold;

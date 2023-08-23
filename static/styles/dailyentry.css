@@ -1,10 +1,20 @@
 /* Modal Styles */
-.modal ,.confirm-modal{
-    display: none;
+.modal {
+    display: flex;
+    width: 55%;
+    height: 100%;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+    left:45.027%;
+    top:11.3%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+}
+
+.confirm-modal{
+    display: none;
+    width: 50%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     justify-content: center;
@@ -14,7 +24,18 @@
 
 
 
-.modal-content, .confirm-modal-content {
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    width: 100%;
+    height:100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+}
+.confirm-modal-content{
     background-color: white;
     padding: 20px;
     border-radius: 5px;
@@ -27,14 +48,12 @@
     align-items: center;
     align-content: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-.confirm-modal-content{
     width: 30%;
     height:60%;
 }
 
 
-.close, .confirm-close {
+.confirm-close {
     position: absolute;
     top: 4px;
     right: 10px;
@@ -101,7 +120,7 @@ input[type="number"] {
 }
 
 .submit_button, #cancel_button, #confirm_button {
-    padding: 10px 15px;
+    padding: 15px 15px;
     background-color: #007bff;
     color: white;
     border: none;

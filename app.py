@@ -6,7 +6,7 @@ import webbrowser
 import threading
 import subprocess
 import tkinter as tk
-import webview
+# import webview
 import os
 from datetime import datetime
 
@@ -96,7 +96,8 @@ try:
     def home():
         email = session.get('email')
         if email:
-            return render_template("home.html")
+            message = request.args.get('message',"")
+            return render_template('home.html', message=message)
         return redirect(url_for("index", error = "Please login first!"))
 
 
@@ -233,9 +234,10 @@ try:
                 if owner_document:
                     db_password = owner_document['password']
                     if bcrypt.checkpw(old_password.encode('utf-8'), db_password):
+                        message="Password changed successfully!"
                         new_hashed_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt())
                         owner_collection.update_one({'_id': owner_document['_id']}, {'$set': {'password': new_hashed_password}})
-                        return redirect(url_for("home"))
+                        return redirect(url_for("home",message=message))
             return redirect(url_for("changepasswordpage", error="Password was incorrect"))
         else:
             return redirect(url_for("index", error = "Please login first!"))
