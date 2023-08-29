@@ -11,6 +11,11 @@
         <a href="/dailyentrypage/back" class = back-button id="back-button">Back</a>
         <input type="text" id="search-input" placeholder="Search by Name or Number">
     </div>
+
+    <div class = "success-message" id ="success"></div>
+    <div class = "entry-message" id ="entry">{{message}}</div>
+
+
     <div class="customer-cards">
     {% for customer in customers %}
         <div class="customer-card" card_id='{{customer.customer_id}}' card_name ='{{customer.customer_name}}' card_phone ='{{customer.customer_phone}}' card_village='{{customer.customer_village}}'>
@@ -39,41 +44,52 @@
                 <label for="entry_village">Village:</label>
                 <input type="text" id="entry_village" name="entry_village" disabled>
             </form>
-            <form id="form">
-                <input type="hidden" id="entry_id_hidden" name="entry_id_hidden">
+            <form id="form" action="/addentry" method="post">
+                <input type="hidden" id="entry_id_hidden" name="entry_id_hidden" value="">
 
                 <label for="milkDate">Date:</label>
-                <input type="date" id="milkDate" name="milkDate" required>
+                <input type="date" id="milkDate" name="milkDate">
+                <div class="error-message" id="date-error"></div>
+
 
                 <div class="radio-group">
                     <label class="radio-label">
-                        <input type="radio" id="amRadio" name="am_pm" value="AM" required>AM
+                        <input type="radio" id="amRadio" class="am_pm" name="am_pm" value="AM">AM
                     </label>
                     <label class="radio-label">
-                        <input type="radio" id="pmRadio" name="am_pm" value="PM" required>PM
+                        <input type="radio" id="pmRadio" class="am_pm" name="am_pm" value="PM">PM
                     </label>
                 </div>
+                <div class="error-message" id="time-error"></div>
 
                 <label for="fat">FAT:</label>
-                <input type="number" step = "any" id="fat" name="fat" required>
+                <input type="number" step = "any" id="fat" name="fat">
+                <div class="error-message" id="fat-error"></div>
+
 
                 <label for="snf">SNF:</label>
-                <input type="number" step= "any" id="snf" name="snf" required>
+                <input type="number" step= "any" id="snf" name="snf">
+                <div class="error-message" id="snf-error"></div>
+
                 
                 <label for="quantity">Milk (in Litres):</label>
-                <input type="number" step = "any" id="quantity" name="quantity" required>
+                <input type="number" step = "any" id="quantity" name="quantity">
+                <div class="error-message" id="quantity-error"></div>
+
                 
                 <label for="total">Total Price(₹.):</label>
-                <input type="number" step = "any" id="total" name="total" required>
+                <input type="number" step = "any" id="total" name="total">
+                <div class="error-message" id="total-error"></div>
+
                 
-                <button type="button" class = submit_button>Submit</button>
+                <button type = "button" class = submit_button>Submit</button>
             </form>
         </div>
     </div>
 
 
-
     <div class="confirm-modal" id="mini-modal">
+        <!-- <h2>Are you sure to add this entry?</h2> -->
         <div class="confirm-modal-content">
             <span class="confirm-close">&times;</span>
             <form id="confirm-form1">
@@ -89,26 +105,26 @@
                 <label for="confirm_village">Village:</label>
                 <input type="text" id="confirm_village" name="confirm_village" disabled>
 
-                <button type="submit" id = cancel_button>Cancel</button>
+                <button type="button" id = cancel_button>Edit</button>
             </form>
             <form id="confirm-form">
 
                 <label for="confirm-date">Date:</label>
-                <input type="text" id="confirm_date" name = "confirm_date" disabled>
+                <input type="text" id="confirm-date" name = "confirm-date" disabled>
 
                 <label for="confirm-fat">FAT:</label>
                 <input type="number" step = "any" id="confirm-fat" name="confirm-fat" disabled>
 
                 <label for="confirm-snf">SNF:</label>
-                <input type="number" step= "any" id="snf" name="snf" disabled>
+                <input type="number" step= "any" id="confirm-snf" name="confirm-snf" disabled>
                 
                 <label for="confirm-quantity">Milk (in Litres):</label>
-                <input type="number" step = "any" id="quantity" name="quantity" disabled>
+                <input type="number" step = "any" id="confirm-quantity" name="confirm-quantity" disabled>
                 
                 <label for="confirm-total">Total Price(₹.):</label>
-                <input type="number" step = "any" id="confirm-total" name="confirm-total" disabled>
+                <input type="number" step = "any" id="confirm-total" name="confirm-total" disabled >
                 
-                <button type="submit"  id = confirm_button>Submit</button>
+                <button type="button"  id = confirm_button>Submit</button>
             </form>
         </div>
     </div>

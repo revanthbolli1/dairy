@@ -9,6 +9,9 @@
     <div class="search-bar">
         <a href="/customerspage/back" class = back-button id="back-button">Back</a>
         <input type="text" id="search-input" placeholder="Search by Name or Number">
+        <span>Total Paid: ₹ {{paid}}</span>
+        <span>Pending Bill: ₹ {{pending}}</span>
+        <span>Total Business: ₹ {{business}}</span>
     </div>
     <div class="customers-cards">
         {% for customer in customers %}
@@ -18,9 +21,22 @@
             <h2 class="name">Name: {{ customer.customer_name }}</h2>
             <p class ="phone">Phone: {{ customer.customer_phone }}</p>
             <p class ="village">Village: {{ customer.customer_village }}</p>
-            <p class ="total">Total Business: ₹3000</p>
+            <a href="/view_entry/{{customer.customer_id}}" class = "view-entry">VIEW ENTRIES</a>
         </div>
         {% endfor %}
+    </div>
+
+
+    <div id="myModal" class="modalss">
+        <span id="close">&times;</span>
+        <div id="customer-chart">
+            <span id="cnumber"></span>
+            <span id="cpaid"></span>
+            <span id="cpending"></span>
+            <span id="cbusiness"></span>
+        </div>
+        <div class="modal-contentss">
+        </div>
     </div>
 </body>
 </html>

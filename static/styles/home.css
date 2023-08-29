@@ -10,22 +10,23 @@ body{
 .item-container{
     display:flex;
     flex-wrap: wrap;
-    width:92%;
+    width:85%;
     margin-top: 5.5rem;
-    column-gap: 4rem;
+    column-gap: 6rem;
     row-gap: 4rem;
     padding: 1rem 0rem ;
     position:absolute;
     top:5%;
-    left:4%;
-    justify-content: space-evenly;
+    left:7%;
+    justify-content: space-between;
     align-items: center;
-    align-content: space-evenly;
+    align-content: center;
 }
 
 .card {
     transition: 0.2s;
-    width: 20.5rem;
+    width: 22.5rem;
+    height: auto;
     border-radius: 50% 50% 2.5rem 2.5rem;
     margin-bottom: 4rem;
     cursor: pointer;
@@ -41,13 +42,13 @@ body{
 .card img {
     border-radius: 50%;
     width:100%;
-    height:20rem;
+    height: auto;
     border: 0.2rem double white;
     background-color: #EFEFEF;
 }
 
 .containers {
-    padding: 0.2rem 1.6rem;
+    padding: 0.2rem 1.3rem;
     text-align: center;
     line-height: 2;
     background-color: rgb(23, 3, 203);

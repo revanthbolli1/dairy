@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History</title>
+    <link rel="stylesheet" href="/static/styles/history.css">
+</head>
+<body>
+    <div class="search-bar">
+        <a href="/history/back" class = back-button id="back-button">Back</a>
+    </div>
+    <div class="card-container">
+        {% for entry in entries %}
+            <div class="card">
+                <span>Number: {{entry.customer_id}} </span>
+                <span>Date: {{entry.date}} </span>
+                <span>Time: {{entry.time}} </span>
+                <span>FAT: {{entry.fat}} </span>
+                <span>SNF: {{entry.snf}} </span>
+                <span>Litres: {{entry.quantity}} </span>
+                <span>Total amount: ₹ {{entry.price}}</span>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

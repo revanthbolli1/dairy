@@ -1,11 +1,11 @@
-from flask import Flask, render_template, request, session, url_for, redirect
+from flask import Flask, render_template, request, session, url_for, redirect, jsonify
 from pymongo import MongoClient
 import logging
 import bcrypt
 import webbrowser
 import threading
 import subprocess
-import tkinter as tk
+
 # import webview
 import os
 from datetime import datetime
@@ -56,6 +56,14 @@ try:
             if bcrypt.checkpw(password.encode('utf-8'), stored_hashed_password):
                 return True
         return False
+    
+    def find_missing_number(numbers):
+        start = numbers[0]
+        for i in range(1, len(numbers)):
+            expected_number = start + i * 5
+            if numbers[i] != expected_number:
+                return expected_number
+        return None
 
     def get_last_used_id():
         last_used = customer_collection.find_one(sort=[("customer_id", -1)])
@@ -64,10 +72,17 @@ try:
         return 1000
 
     def generate_unique_id():
-        last_id = get_last_used_id()
-        new_id = last_id + 5
+        customer_ids = [doc["customer_id"] for doc in customer_collection.find({}, {"customer_id": 1, "_id": 0})]
+        sorted_customer_ids = sorted(customer_ids)
+        miss_num = find_missing_number(sorted_customer_ids)
+        if miss_num is not None:
+            new_id = miss_num
+        else:
+            last_id = get_last_used_id()
+            new_id = last_id + 5
+            new_id = new_id
         return new_id
-    
+        
 
     #ROUTES FOR INDEX PAGE
     @app.route('/')
@@ -153,30 +168,48 @@ try:
 
 
 
-    #ROUTES FOR CUSTOMERS PAGE
+    #ROUTES FOR CUSTOMERS & ENTRIES PAGE
     @app.route("/customerspage")
     def customerspage():
         email = session.get('email')
         if email:
-            customers = customer_collection.find()
-            return render_template("customers.html",customers=customers)
+            customers = customer_collection.find().sort("customer_id",1)
+            entries = entries_collection.find({})
+            totalBusiness  = sum(doc.get("price", 0) for doc in entries)
+            pendingBilldocs = entries_collection.find({"paid":False})
+            total_unpaid_price = sum(doc["price"] for doc in pendingBilldocs)
+            paidBilldocs = entries_collection.find({"paid":True})
+            total_paid_price = sum(doc["price"] for doc in paidBilldocs)
+            return render_template("customers.html",customers=customers, business = totalBusiness, pending = total_unpaid_price, paid = total_paid_price)
         return redirect(url_for("index", error = "Please login first!"))
     
     @app.route("/customerspage/back")
     def customerspageback():
         return redirect(url_for("back"))
     
+    @app.route('/view_entry/<user_id>', methods=['GET'])
+    def view_entry(user_id):
+        entries = list(entries_collection.find({'customer_id': int(user_id)}))[::-1]
+        pdocs = list(entries_collection.find({"customer_id":int(user_id), "paid":True}))
+        updocs = list(entries_collection.find({"customer_id":int(user_id), "paid":False}))
+        totalBusiness  = sum(doc.get("price", 0) for doc in entries)
+        total_unpaid_price = sum(doc["price"] for doc in updocs)
+        total_paid_price = sum(doc["price"] for doc in pdocs)
 
-
+        for entry in entries:
+            entry['_id'] = str(entry['_id'])
+        return jsonify(entries,total_paid_price,total_unpaid_price,totalBusiness,user_id)
+    
 
 
     #ROUTES FOR  DAILY ENTRY PAGE
     @app.route("/dailyentrypage")
     def dailyentrypage():
+        message = request.args.get("message","")
         email = session.get('email')
         if email:
-            customers = customer_collection.find()
-            return render_template("dailyentry.html",customers=customers)
+            customers = customer_collection.find().sort("customer_id",1)
+            return render_template("dailyentry.html",customers=customers,message=message)
         return redirect(url_for("index", error = "Please login first!"))
 
     @app.route("/dailyentrypage/back")
@@ -185,6 +218,7 @@ try:
     
     @app.route('/addentry',  methods=['GET', 'POST'])
     def addentry():
+        message=""
         if request.method == "POST":
             customer_id = request.form["entry_id_hidden"]
             date = request.form["milkDate"]
@@ -200,12 +234,14 @@ try:
                 "fat":float(fat),
                 "snf":float(snf),
                 "quantity":float(quantity),
-                "price":float(price)
+                "price":float(price),
+                "paid":False
             }
             customer_document = customer_collection.find_one({'customer_id': int(customer_id)})
             if customer_document:
                 entries_collection.insert_one(entry_document)
-        return redirect(url_for("dailyentrypage"))
+                message="Entry added Successfully"
+        return redirect(url_for("dailyentrypage",message = message))
 
 
 
@@ -247,14 +283,27 @@ try:
         return redirect(url_for("back"))
     
 
-
-
     
     #ROUTE FOR LOGOUT
     @app.route('/logout')
     def logout():
         session.pop("email",None)
         return redirect(url_for('index'))
+    
+
+    #ROUTE FOR HISTORY
+    @app.route('/history')
+    def history():
+        email = session.get('email')
+        entries=[]
+        if email:
+            entries= list(entries_collection.find().sort("_id",-1))
+        return render_template("history.html",entries=entries)
+    
+    @app.route("/history/back")
+    def history_back():
+        return redirect(url_for("back"))
+           
     
 
 except Exception as e:
@@ -279,7 +328,7 @@ if __name__ == '__main__':
 
 
 
-#Encrypting password
+# Encrypting password
 # import bcrypt
 # from pymongo import MongoClient
 
