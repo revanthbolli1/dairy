@@ -12,13 +12,13 @@ body{
     flex-wrap: wrap;
     width:85%;
     margin-top: 5.5rem;
-    column-gap: 6rem;
+    column-gap: 12rem;
     row-gap: 4rem;
     padding: 1rem 0rem ;
     position:absolute;
     top:5%;
     left:7%;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     align-content: center;
 }

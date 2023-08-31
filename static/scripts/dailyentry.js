@@ -30,6 +30,24 @@ document.addEventListener('DOMContentLoaded', function() {
         const confirm_village = document.getElementById('confirm_village');
         const confirm_id = document.getElementById('confirm_id');
 
+        
+        const date = document.getElementById("milkDate");
+        const currentDate = new Date();
+        const year = currentDate.getFullYear();
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+        const day = String(currentDate.getDate()).padStart(2, '0');
+        const formattedDate = `${year}-${month}-${day}`;
+        date.value=formattedDate;
+        const currentTime = new Date().getHours();
+        const radioAM = document.getElementById('amRadio');
+        const radioPM = document.getElementById('pmRadio');
+
+        if (currentTime >= 12) {
+            radioPM.checked = true;
+        } else {
+            radioAM.checked = true;
+        }
+
         entry_name.value = cname;
         entry_phone.value = phone;
         entry_village.value = village;
@@ -73,11 +91,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const quantity = document.getElementById('quantity');
         const total = document.getElementById('total');
         const entry_id_hidden = document.getElementById('entry_id_hidden');
-        const confirm_fat = document.getElementById('confirm-fat');
-        const confirm_date=document.getElementById('confirm-date');
-        const confirm_snf=document.getElementById('confirm-snf');
-        const confirm_quantity=document.getElementById('confirm-quantity');
-        const confirm_total=document.getElementById('confirm-total');
         count = 0;
         date_error.innerText="";
         fat_error.innerText="";
@@ -137,15 +150,19 @@ document.addEventListener('DOMContentLoaded', function() {
             snf_error.innerText="";
             quantity_error.innerText="";
             total_error.innerText="";
-
+            const confirm_fat = document.getElementById('confirm-fat');
+            const confirm_date=document.getElementById('confirm-date');
+            const confirm_snf=document.getElementById('confirm-snf');
+            const confirm_quantity=document.getElementById('confirm-quantity');
+            const confirm_total=document.getElementById('confirm-total');
+            const parts = date.value.split('-');
+            const display_date = `${parts[2]}-${parts[1]}-${parts[0]}`
+            confirm_date.value= display_date+" ("+time.value+")";
+            confirm_fat.value=fat.value;
+            confirm_snf.value=snf.value;
+            confirm_quantity.value=quantity.value;
+            confirm_total.value=total.value;
         }
-        const parts = date.value.split('-');
-        const display_date = `${parts[2]}-${parts[1]}-${parts[0]}`
-        confirm_date.value= display_date+" ("+time.value+")";
-        confirm_fat.value=fat.value;
-        confirm_snf.value=snf.value;
-        confirm_quantity.value=quantity.value;
-        confirm_total.value=total.value;
         
     });
 

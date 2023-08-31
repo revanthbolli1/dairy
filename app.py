@@ -58,7 +58,10 @@ try:
         return False
     
     def find_missing_number(numbers):
-        start = numbers[0]
+        if not numbers[0]==1000:
+            start = 995
+        else:
+            start=numbers[0]
         for i in range(1, len(numbers)):
             expected_number = start + i * 5
             if numbers[i] != expected_number:
@@ -243,7 +246,44 @@ try:
                 message="Entry added Successfully"
         return redirect(url_for("dailyentrypage",message = message))
 
+    #ROUTES FOR DELETE CUSTOMERPAGE
+    @app.route("/deletecustomerpage")
+    def deletecustomerpage():
+        successmsg = request.args.get("successmsg","")
+        failmsg = request.args.get("failmsg","")
+        print(successmsg)
+        print(failmsg)
+        email = session.get('email')
+        if email:
+            customers = customer_collection.find().sort("customer_id",1)
+            return render_template("deletecustomer.html",customers=customers,successmsg=successmsg,failmsg=failmsg)
+        return redirect(url_for("index", error = "Please login first!"))
+    
+    @app.route("/delete_customer",methods=['GET', 'POST'])
+    def delete_customer():
+        successmsg = ""
+        failmsg = ""
+        email = session.get('email')
+        if email:
+            if request.method == "POST":
+                id = request.form["id"]
+                password = request.form["password"]
+                owner_document = owner_collection.find_one({"username": email})
+                if owner_document:
+                    stored_hashed_pass = owner_document["password"]
+                    if bcrypt.checkpw(password.encode('utf-8'), stored_hashed_pass):
+                        customer_collection.delete_one({"customer_id": int(id)})
+                        entries_collection.delete_many({"customer_id": int(id)})
+                        successmsg="Deleted Successfully!"
+                        return redirect(url_for("deletecustomerpage",successmsg=successmsg))
+                    else:
+                        failmsg="Deletion Failed!"
+                        return redirect(url_for("deletecustomerpage",failmsg=failmsg))
 
+
+    @app.route("/deletecustomerpage/back")
+    def deletecustomerpageback():
+        return redirect(url_for("back"))
 
 
 
@@ -298,7 +338,7 @@ try:
         entries=[]
         if email:
             entries= list(entries_collection.find().sort("_id",-1))
-        return render_template("history.html",entries=entries)
+        return render_template("history.html",entries=entries[0:20])
     
     @app.route("/history/back")
     def history_back():

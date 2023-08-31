@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     const searchInput = document.getElementById("search-input");
     const customerCards = document.querySelector(".customers-cards");
-    const cards = customerCards.querySelectorAll(".customer-card");
+    const cards = document.querySelectorAll(".customer-card");
     // Search button click event handler
     searchInput.addEventListener("input", () => {
         const searchQuery = searchInput.value.toLowerCase();

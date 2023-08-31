@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customers</title>
+    <link rel="stylesheet" href="/static/styles/deletecustomer.css">
+    <script src="/static/scripts/deletecustomer.js" defer></script>
+</head>
+<body>
+    <div class="search-bar">
+        <a href="/deletecustomerpage/back" class = back-button id="back-button">Back</a>
+        <input type="text" id="search-input" placeholder="Search by Name or Number">
+    </div>
+    <div class="success">{{successmsg}}</div>
+    <div class="failure">{{failmsg}}</div>
+    <div class="customers-cards">
+        {% for customer in customers %}
+        <div class="customer-card">
+            <img src="{{ customer.customer_pic }}" alt="{{ customer.customer_name }} Image">
+            <h2 class="id">Number: {{ customer.customer_id }}</h2>
+            <h2 class="name">Name: {{ customer.customer_name }}</h2>
+            <p class ="phone">Phone: {{ customer.customer_phone }}</p>
+            <p class ="village">Village: {{ customer.customer_village }}</p>
+            <button class="delete-customer">DELETE</button>
+        </div>
+        {% endfor %}
+    </div>
+
+
+    <div id="myModal" class="modalss">
+        <span id="close">&times;</span>
+        <div class="modal-contentss">
+            <h2>Are you sure you want to delete permanantly?</h2>
+            <div id="cdetails">
+                <span id="cnumber">Number: </span>
+                <span id="cname">Name: </span>
+                <span id="cphone">Phone: </span>
+                <span id="cvillage">Village: </span>
+            </div>
+            <form id="cform" action="/delete_customer" method="post">
+                <h3>If you continue to delete customer, enter password,</h3>
+                <input type="password" name="password" id="cinput" placeholder="Enter password.">
+                <input type = "hidden" name = "id" id="hidden-id">
+                <span id="errormsg"></span>
+                <div id="buttons">
+                    <button type="button" id="ccancel">Cancel</button>
+                    <button type="button" id="cdelete">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
